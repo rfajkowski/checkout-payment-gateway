@@ -20,7 +20,7 @@ public sealed class PaymentService(
         if (errors.Count > 0)
         {
             logger.LogInformation(
-                "Payment request rejected with {ValidationErrorCount} validation errors",
+                "Payment request rejected for {ValidationFieldCount} fields",
                 errors.Count);
 
             metrics.RecordPaymentRejected();
