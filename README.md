@@ -103,8 +103,8 @@ The repository uses an in-memory `ConcurrentDictionary`, which is enough for thi
 - Invalid requests are not sent to the bank and are not stored.
 - A bank failure is a technical failure rather than a decline because no authorization decision was received.
 - Only the last four card digits are stored. Full PAN and CVV are used only to call the bank.
-- Card-number validation follows the brief: 14–19 ASCII digits. I did not add Luhn validation as it is not part of the requirments.
-- The specs does not define an amount range, so I did not add a minimum or maximum.
+- Card-number validation follows the brief: 14–19 ASCII digits. I did not add Luhn validation because it isn't part of the requirements.
+- The brief doesn't define an amount range, so I didn't add a minimum or maximum.
 
 ## Out of scope
 
@@ -138,7 +138,7 @@ The tags are low-cardinality. A deployed service would connect these instruments
 
 ### Persistence and scaling
 
-The in-memory repository is process-local. Multiple API replicas would need shared durable storage  with appropriate consistency, audit and availability guarantees before horizontal scaling behind a load balancer.
+The in-memory repository is process-local, so multiple API instances would need shared durable storage.
 
 ### Idempotency
 
@@ -152,6 +152,4 @@ A deployed service would also use managed secrets and configuration, readiness c
 
 ### Resilience, hosting and operations
 
-A deployed version would set an explicit timeout for bank calls and reconcile payments whose outcome is unknown. It would run behind TLS termination, with secrets and configuration managed by the hosting platform rather than stored in source control.
-
-I would use separate liveness and readiness checks, and connect the existing metrics to the platform's monitoring and alerting tools. Standard HTTP tracing and metrics would provide visibility across the merchant request and bank call.
+A deployed version would also configure an explicit bank timeout, separate liveness/readiness checks, and use the hosting platform for secrets, TLS, tracing and metrics.

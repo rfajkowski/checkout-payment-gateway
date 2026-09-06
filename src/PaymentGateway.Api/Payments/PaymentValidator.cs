@@ -73,12 +73,6 @@ public sealed class PaymentValidator(TimeProvider timeProvider)
             expiryYear is null,
             "Expiry year is required.");
 
-        Add(
-            errors,
-            "expiryYear",
-            expiryYear is < 1 or > 9999,
-            "Expiry year must be a valid year.");
-
         if (expiryMonth is >= 1 and <= 12 &&
             expiryYear is >= 1 and <= 9999)
         {

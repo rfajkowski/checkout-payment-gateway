@@ -6,6 +6,5 @@ namespace PaymentGateway.Api.Payments;
 public enum PaymentStatus
 {
     Authorized,
-    Declined,
-    Rejected
+    Declined
 }
