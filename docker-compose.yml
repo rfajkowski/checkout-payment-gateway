@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   bank_simulator:
     container_name: bank_simulator
@@ -12,4 +10,17 @@ services:
       - type: bind
         source: ./imposters
         target: /imposters
-      
+
+  payment_gateway:
+    build:
+      context: .
+      dockerfile: src/PaymentGateway.Api/Dockerfile
+    container_name: payment_gateway
+    depends_on:
+      - bank_simulator
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      AcquiringBank__BaseUrl: http://bank_simulator:8080/
+    ports:
+      - "8081:8080"

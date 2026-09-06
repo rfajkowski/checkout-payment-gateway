@@ -1,0 +1,6 @@
+.git
+.vs
+**/bin
+**/obj
+test
+checkout-payment-gateway-codex-guide-v2.md

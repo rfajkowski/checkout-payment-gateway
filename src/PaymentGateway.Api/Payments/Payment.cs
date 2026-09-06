@@ -1,6 +1,4 @@
-using PaymentGateway.Api.Payments;
-
-namespace PaymentGateway.Api.Persistence;
+namespace PaymentGateway.Api.Payments;
 
 public sealed class Payment
 {
