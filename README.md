@@ -85,10 +85,15 @@ The test suite covers validation, payment processing, repository behaviour, the 
 The request flow is:
 
 ```text
-PaymentsController
-    -> PaymentService
-        -> PaymentValidator
-        -> IAcquiringBankClient
+POST /api/payments
+    -> PaymentsController
+        -> PaymentService
+            -> PaymentValidator
+            -> IAcquiringBankClient
+            -> IPaymentRepository
+
+GET /api/payments/{id}
+    -> PaymentsController
         -> IPaymentRepository
 ```
 
@@ -148,8 +153,6 @@ A payment API would normally use an `Idempotency-Key` header backed by shared st
 
 If reusable card credentials were required, I would use tokenization or card vaulting rather than storing PAN in this service. CVV would not be persisted.
 
-A deployed service would also use managed secrets and configuration, readiness checks, TLS termination, and the platform's standard HTTP tracing and metrics.
-
 ### Resilience, hosting and operations
 
-A deployed version would also configure an explicit bank timeout, separate liveness/readiness checks, and use the hosting platform for secrets, TLS, tracing and metrics.
+A deployed version would also configure an explicit bank timeout and readiness checks, with secrets, TLS, tracing and metrics handled through the hosting platform.
