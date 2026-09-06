@@ -6,6 +6,19 @@ namespace PaymentGateway.Api.Tests.Persistence;
 public sealed class InMemoryPaymentRepositoryTests
 {
     [Fact]
+    public void Add_ThenGet_ReturnsStoredPayment()
+    {
+        var repository = new InMemoryPaymentRepository();
+        var payment = CreatePayment(Guid.NewGuid());
+
+        repository.Add(payment);
+
+        var result = repository.Get(payment.Id);
+
+        Assert.Same(payment, result);
+    }
+
+    [Fact]
     public void Add_WhenPaymentIdAlreadyExists_ThrowsInvalidOperationException()
     {
         var repository = new InMemoryPaymentRepository();

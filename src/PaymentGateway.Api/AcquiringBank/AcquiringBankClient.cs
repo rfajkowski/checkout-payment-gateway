@@ -16,7 +16,6 @@ public sealed class AcquiringBankClient(
         CancellationToken cancellationToken)
     {
         long startTimestamp = Stopwatch.GetTimestamp();
-        logger.LogInformation("Acquiring bank request started");
 
         try
         {
@@ -37,7 +36,7 @@ public sealed class AcquiringBankClient(
             if (!response.IsSuccessStatusCode)
             {
                 RecordFailure(
-                    "http",
+                    "http_status",
                     Stopwatch.GetElapsedTime(startTimestamp),
                     response.StatusCode);
 
@@ -77,7 +76,7 @@ public sealed class AcquiringBankClient(
         catch (HttpRequestException exception)
         {
             RecordFailure(
-                "http",
+                "network",
                 Stopwatch.GetElapsedTime(startTimestamp),
                 exception: exception);
 

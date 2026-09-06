@@ -91,7 +91,7 @@ public sealed class PaymentsApiTests : IClassFixture<WebApplicationFactory<Progr
         Assert.Equal("application/problem+json", response.Content.Headers.ContentType!.MediaType);
         var problem = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         Assert.Equal(StatusCodes.Status502BadGateway, problem!.Status);
-        Assert.Equal("Acquiring bank is unavailable.", problem.Title);
+        Assert.Equal("Acquiring bank request failed.", problem.Title);
     }
 
     [Fact]

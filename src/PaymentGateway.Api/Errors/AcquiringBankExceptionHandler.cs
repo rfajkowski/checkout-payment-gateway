@@ -18,7 +18,7 @@ public sealed class AcquiringBankExceptionHandler : IExceptionHandler
 
         await Results.Problem(
                 statusCode: StatusCodes.Status502BadGateway,
-                title: "Acquiring bank is unavailable.")
+                title: "Acquiring bank request failed.")
             .ExecuteAsync(httpContext);
 
         return true;
