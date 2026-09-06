@@ -73,8 +73,7 @@ public sealed class PaymentValidator(TimeProvider timeProvider)
             expiryYear is null,
             "Expiry year is required.");
 
-        if (expiryMonth is >= 1 and <= 12 &&
-            expiryYear is >= 1 and <= 9999)
+        if (expiryMonth is >= 1 and <= 12 && expiryYear is not null)
         {
             var now = timeProvider.GetUtcNow();
 
